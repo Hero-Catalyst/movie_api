@@ -131,3 +131,4 @@
 ::1 - - [19/Aug/2022:04:24:35 +0000] "DELETE /users/Bobby/movies/62fdb2e71b69a9f6c3da5243 HTTP/1.1" 404 185 "-" "PostmanRuntime/7.29.2"
 ::1 - - [19/Aug/2022:04:25:08 +0000] "DELETE /users/Bobby/movies/62fdb2e71b69a9f6c3da5243 HTTP/1.1" 200 169 "-" "PostmanRuntime/7.29.2"
 ::1 - - [19/Aug/2022:04:26:14 +0000] "DELETE /users/Bobby HTTP/1.1" 200 18 "-" "PostmanRuntime/7.29.2"
+::1 - - [19/Aug/2022:04:34:24 +0000] "GET /movies HTTP/1.1" 201 3563 "-" "PostmanRuntime/7.29.2"

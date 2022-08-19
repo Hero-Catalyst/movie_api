@@ -12,84 +12,157 @@
   of their favorite movies.</p>
 
   <table class ="table">
+
     <tr>
       <th>Request</th>
       <th>HTTP Method Type</th>
       <th>URL</th>
       <th>Response</th>
-      <th>Data</th>
+      <th>Data Example</th>
     </tr>
+<br>
 
     <tr>
       <td>Return a list of All Movies to the user</td>
       <td>GET</td>
       <td>/movies</td>
       <td>A JSON object holding data about all the movies</td>
-      <td>5</td>
+      <td>{
+        "Actors": ["String"],<br>
+        "_id": "String",<br>
+        "Title": "String",<br>
+        "Description": "String",<br>
+        "ImagePath": "String",<br>
+        "Featured": "Boolean"<br>
+    },</td>
     </tr>
+<br>
 
     <tr>
       <td>Return data about a single movie by title to the user</td>
       <td>GET</td>
-      <td>/movies/:title</td>
+      <td>/movies/:Title</td>
       <td>A JSON object holding data about a single movie</td>
-      <td>5</td>
+      <td>{
+        "Actors": ["String"],<br>
+        "_id": "String",<br>
+        "Title": "String",<br>
+        "Description": "String",<br>
+        "ImagePath": "String",<br>
+        "Featured": "Boolean"<br>
+    }</td>
     </tr>
+<br>
 
     <tr>
       <td>Return data about a genre (description) by name/title</td>
       <td>GET</td>
-      <td>/movies/genre/:genreName</td>
+      <td>/movies/genre/:Name</td>
       <td>A JSON object holding data about the movie genre</td>
-      <td>5</td>
+      <td>{<br>
+	"_id" : "Integer",<br>
+	"Genre Name" : "String",<br>
+	"Description" : "String"<br>
+}
+</td>
     </tr>
+<br>
 
     <tr>
       <td>Return data about a director (bio, birth year, death year) by name</td>
       <td>GET</td>
-      <td>/movies/directors/:directorName</td>
+      <td>/movies/directors/:Name</td>
       <td>A JSON object holding data about the director</td>
-      <td>5</td>
+      <td>{ <br>
+	"_id" : "Integer", <br>
+	"Director Name" : "String", <br>
+	"Bio" : "String", <br>
+	"Birth" : "Date", <br>
+	"Death" : "Date" <br>
+}
+
+      </td>
     </tr>
+<br>
 
     <tr>
       <td>Allow new users to register</td>
       <td>POST</td>
       <td>/users</td>
       <td>A JSON object holding data about the new user, including an ID</td>
-      <td></td>
+      <td>{ <br>
+  "_id" : "Integer", <br>
+  "Username" : "String", <br>
+  "Password" : "String", <br>
+  "Email" : "String", <br>
+  "Birthday" : "Date", <br>
+  "FavoriteMovies" : [
+    "String"
+  ] <br>
+}
+      </td>
     </tr>
+<br>
 
     <tr>
       <td>Allow users to updated their user info</td>
       <td>PUT</td>
       <td>/users/:id</td>
       <td>A JSON object holding updated data of the user</td>
-      <td></td>
+      <td>{ <br>
+	"_id" : "Integer", <br>
+	"Username" : "Updated String", <br>
+	"Password" : "Updated String", <br>
+	"Email" : "Updated String", <br>
+	"Birthday" : "Updated Date", <br>
+	"FavoriteMovies" : [
+		"Updated String"
+	] <br>
+}
+      </td>
     </tr>
-
+<br>
     <tr>
       <td>Allow users to add a movie to their list</td>
       <td>POST</td>
       <td>/users/id/:movieTitle</td>
       <td>A JSON object holding updated data on their list of movies</td>
-      <td></td>
+      <td>{ <br>
+  "_id" : "Integer", <br>
+  "Username" : "String", <br>
+  "Password" : "String", <br>
+  "Email" : "String", <br>
+  "Birthday" : "Date", <br>
+  "FavoriteMovies" : [
+    "Updated String", "Updated String"
+  ] <br>
+}
+      </td>
     </tr>
-
+<br>
     <tr>
       <td>Allow users to remove a movie from their list</td>
       <td>DELETE</td>
       <td>users/:id/:movieTitle</td>
       <td>A JSON object holding updated data on their list of movies</td>
-      <td></td>
+      <td>{ <br>
+  "_id" : "Integer", <br>
+  "Username" : "String", <br>
+  "Password" : "String", <br>
+  "Email" : "String", <br>
+  "Birthday" : "Date", <br>
+  "FavoriteMovies" : [
+    "Updated String"] <br>
+}
+      </td>
     </tr>
-
+<br>
     <tr>
       <td>Allow existing users to deregister</td>
       <td>DELETE</td>
       <td>/users/:id</td>
       <td>A string stating that the user has been removed</td>
-      <td></td>
+      <td>"User" has been removed.</td>
     </tr>
 
 
