@@ -7,7 +7,7 @@ let Users = Models.User,
   JWTStrategy = passportJWT.Strategy,
   ExtractJWT = passportJWT.ExtractJwt;
 
-//"Strategies"
+//Defining "Strategies"
 //Defines basic HTTP authentication for login requests.
 passport.use(new LocalStrategy({
   usernameField: 'Username',
@@ -23,6 +23,11 @@ passport.use(new LocalStrategy({
     if (!user) {
       console.log('Incorrect username');
       return callback(null, false, {message: 'Incorrect username or password.'});
+    }
+//Validate hashed password
+    if (!user.validatePassword(password)) {
+      console.log('Incorrect password');
+      return callback(null, false, {message: 'Incorrect password.'});
     }
 
     console.log('Finished');

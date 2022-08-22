@@ -1,10 +1,9 @@
 //Express
 const express = require('express');
 const app = express();
-
+const { check, validationResult } = require('express-validator');
 //Body Parser
 const bodyParser = require('body-parser');
-
 
 //Uuid
 const uuid = require('uuid');
@@ -22,6 +21,24 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname,
 app.use(morgan('combined', {stream: accessLogStream}));
 app.use(bodyParser.json());
 app.use(express.static('public'));
+
+//CORS
+const cors = require('cors');
+//This code would allow requests from ALL origins: app.use(cors(*));
+//This code allows certain origins to have access
+let allowedOrigins = ['http://localhost:8080', 'http://teststie.com'];
+app.use(cors({
+  origin: (origin, callback) => {
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){//If a specific origin isn't
+//found on the list of allowed origins
+    let message = 'The CORS policy for this application does not allow access from origin '
+    + origin;
+    return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  }
+}));
 
 //Import auth.js
 let auth = require('./auth')(app);
@@ -56,17 +73,32 @@ mongoose.connect('mongodb://localhost:27017/myFlixDB',
   Birthday: Date
 }*/
 
-app.post('/users', (req, res) => {
-  Users.findOne({ Username: req.body.Username })
+app.post('/users', [
+  check('Username', 'Username is required').isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+], (req, res) => {
+
+  //Check the validation object for errors
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+
+
+  let hashedPassword = Users.hashPassword(req.body.Password);
+  Users.findOne({ Username: req.body.Username })//Search to see if a user with the requested username already exists
   .then((user) => {
-    if (user) {
+    if (user) {//If the user is found, send a response that it already exists
       return res.status(400).send(req.body.Username +
       ' already exists');
     } else {
       Users
       .create({
         Username: req.body.Username,
-        Password: req.body.Password,
+        Password: hashedPassword,
         Email: req.body.Email,
         Birthday: req.body.Birthday
       })
@@ -82,7 +114,7 @@ app.post('/users', (req, res) => {
       console.error(error);
       res.status(500).send('Error: ' + error);
     });
-  });
+});
 
 // Add a movie to a user's list of favorites
 app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }),
@@ -267,6 +299,7 @@ res.status(500).send('Something broke!');
 });
 
 //Listen for requests
-app.listen(8080, () => {
-console.log('Your app is listening on port 8080.');
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0', () => {
+  console.log('Listening on Port ' + port);
 });
