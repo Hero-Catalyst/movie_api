@@ -55,8 +55,13 @@ const Genre = Models.Genre;
 const Director = Models.Director;
 const Actor = Models.Actor;
 const Users = Models.User;
+
 //Connecting Mongoose to myFlixDB on Mongodb-community(ran in terminal)
-mongoose.connect('mongodb://localhost:27017/myFlixDB',
+/* use for local testing: mongoose.connect('mongodb://localhost:2701/myFlixDB',
+{ useNewUrlParser: true, useUnifiedTopology: true}); */
+
+//use for online database
+mongoose.connect( process.env.CONNECTION_URI,
 { useNewUrlParser: true, useUnifiedTopology: true});
 
 
