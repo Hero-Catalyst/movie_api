@@ -294,7 +294,7 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session: false }),
 
 
 app.get('/', (request, response) => {
-  response.send('hello world!')
+  response.send('Welcome to the MyFlix Movie App!')
 });
 
 //Error handling
