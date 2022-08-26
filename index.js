@@ -26,7 +26,7 @@ app.use(express.static('public'));
 const cors = require('cors');
 //This code would allow requests from ALL origins: app.use(cors(*));
 //This code allows certain origins to have access
-let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234','http://myflix-movieapi-76028.herokuapp.com'];
+let allowedOrigins = ['http://localhost:8080', 'http://localhost:1234', 'https://myflix-movieapi-76028.herokuapp.com'];
 app.use(cors({
   origin: (origin, callback) => {
     if(!origin) return callback(null, true);
