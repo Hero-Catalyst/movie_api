@@ -48,11 +48,11 @@ userSchema.methods.validatePassword = function(password) {
 };
 
 //Model Creation
-let Movie = mongoose.model('Movie', movieSchema);
-let Genre = mongoose.model('Genre', genreSchema);
-let Director = mongoose.model('Director', directorSchema);
-let Actor = mongoose.model('Actor', actorSchema);
-let User = mongoose.model('User', userSchema);
+let Movie = mongoose.model("Movie", movieSchema);
+let Genre = mongoose.model("Genre", genreSchema);
+let Director = mongoose.model("Director", directorSchema);
+let Actor = mongoose.model("Actor", actorSchema);
+let User = mongoose.model("User", userSchema);
 
 //Model exports to index.js
 module.exports.Movie = Movie;
