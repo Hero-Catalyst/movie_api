@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+
 
 let movieSchema = mongoose.Schema({
   Title: {type: String, required: true},
   Description: {type: String, required: true},
-  Genre: {type: mongoose.Schema.Types.ObjectId, ref: 'Genre'},
-  Director: {type: mongoose.Schema.Types.ObjectId, ref: 'Director'},
-  Actors: [{type: mongoose.Schema.Types.ObjectId, ref: 'Actor'}],
+  Genre: {type: mongoose.Schema.Types.ObjectId, ref: "Genre"},
+  Director: {type: mongoose.Schema.Types.ObjectId, ref: "Director"},
+  Actors: [{type: mongoose.Schema.Types.ObjectId, ref: "Actor"}],
   ImagePath: String,
   Featured: Boolean
 });
@@ -35,7 +35,7 @@ let userSchema = mongoose.Schema({
   Password: {type: String, required: true},
   Email: {type: String, required: true},
   Birthday: Date,
-  FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie'}]
+  FavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movie"}]
 });
 
 //Hash the user password
