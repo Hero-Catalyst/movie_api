@@ -100,8 +100,7 @@ app.post("/users", [
       return res.status(400).send(req.body.Username +
       " already exists");
     } else {
-      Users
-      .create({
+      Users.create({
         Username: req.body.Username,
         Password: hashedPassword,
         Email: req.body.Email,
@@ -243,7 +242,7 @@ app.put("/users/:Username", passport.authenticate("jwt", { session: false }),
   Users.findOneAndUpdate(
     { Username: req.params.Username },//Search to see if a user with the requested username already exists
   {
-      $set: {
+      $setUser: {
         Username: req.body.Username,
         Password: hashedPassword,
         Email: req.body.Email,
