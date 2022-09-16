@@ -240,7 +240,7 @@ app.get("/directors/:Name", passport.authenticate("jwt", { session: false }),
 app.put("/users/:Username", passport.authenticate("jwt", { session: false }),
 (req, res) => {
   let hashedPassword = Users.hashPassword(req.body.Password);
-  Users.findOneAndUpdate({ Username: req.body.Username })//Search to see if a user with the requested username already exists
+  Users.findOne({ Username: req.body.Username })//Search to see if a user with the requested username already exists
   .then((user) => {
     if (user) {//If the user is found, send a response that it already exists
       return res.status(400).send(req.body.Username +
