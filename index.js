@@ -240,9 +240,9 @@ app.put("/users/:Username", passport.authenticate("jwt", { session: false }),
 (req, res) => {
   let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOneAndUpdate(
-    { Username: req.params.Username },//Search to see if a user with the requested username already exists
+    { Username: req.params.Username },
   {
-      $set: {
+    updateUser: {
         Username: req.body.Username,
         Password: hashedPassword,
         Email: req.body.Email,
