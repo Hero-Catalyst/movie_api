@@ -258,8 +258,8 @@ app.put("/users/:Username", passport.authenticate("jwt", { session: false }),
     } else {
       res.json(updatedUser);
     }
-  }
-);
+  });
+});
 
 
 // * DELETE *
