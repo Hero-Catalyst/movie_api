@@ -164,19 +164,6 @@ app.get("/users/:Username", passport.authenticate("jwt", { session: false }),
   });
 });
 
-// GET a users list of Favorite Movies
-app.get("/users/:Username/movies", passport.authenticate("jwt", { session: false}),
-(req, res) => {
-  Users.findOne({ Username: req.params.Username },
-  { $toString: { FavoriteMovies: req.params.MovieID } },)
-  .then((FavoriteMovies) => {
-    res.json(FavoriteMovies);
-  })
-  .catch((err) => {
-    console.error(err);
-    res.status(500).send("Error: " + err);
-  });
-});
 
 //GET a list of ALL movies
 app.get("/movies", passport.authenticate("jwt", {session: false}),
