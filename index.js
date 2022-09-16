@@ -123,7 +123,7 @@ app.post("/users", [
 //UPDATE
 //Update users info
 app.put(
-  "/users.Username", passport.authenticate("jwt", {session: false}),
+  "/users/:Username", passport.authenticate("jwt", {session: false}),
   (req, res) => {
     let hashedPassword = Users.hasPassword(req.body.Password);
     Users.findOneAndUpdate(
