@@ -242,7 +242,7 @@ app.put("/users/:Username", passport.authenticate("jwt", { session: false }),
   Users.findOneAndUpdate(
     { Username: req.params.Username },//Search to see if a user with the requested username already exists
   {
-      $setUser: {
+      $set: {
         Username: req.body.Username,
         Password: hashedPassword,
         Email: req.body.Email,
