@@ -123,27 +123,36 @@ app.post("/users", [
 //UPDATE
 //Update users info
 app.put(
-  "/users/:Username", passport.authenticate("jwt", {session: false}),
-  (req, res) => {
+  "/users/:Username", [
+    check("Username", "Username is required").isLength({ min: 5 }),
+    check("Username", "Username contains non alphanumeric characters - not allowed").isAlphanumeric(),
+    check("Password", "Password is required").not().isEmpty(),
+    check("Email", "Email does not appear to be valid").isEmail()
+  ], (req, res) => {
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
     let hashedPassword = Users.hashPassword(req.body.Password);
-    Users.findOneAndUpdate(
-      { Username: req.params.Username },
-      {$set: {
+    Users.findOneAndUpdate({ Username: req.params.Username }, {
+      $set: {
         Username: req.body.Username,
         Password: hashedPassword,
-        Email: req.body.Email,
+        Email: req.body.Emal,
         Birthday: req.body.Birthday
       }
-    },
-      { new: true },
-      (err, updatedUser) => {
-        if (err) {
-          console.error(err);
-          res.status(500).send("Error: " + err);
-        } else {
-          res.json(updatedUser);
-        }
-      });
+    }).then((updatedUser) => {
+      if (updatedUser === null) {
+        res.status(404).send("no user found");
+      } else {
+        res.status(201).json(updatedUser)
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err)
+    });
   });
 
 
