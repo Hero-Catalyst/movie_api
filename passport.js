@@ -38,7 +38,7 @@ passport.use(new LocalStrategy({
 //Allows authentication of users based on the JWT submitted alongside their request.
 passport.use(new JWTStrategy({
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-  secretOrKey: "your_jwt_secret"},
+  secretOrKey: "1a2@3d4$5g"},
   (jwtPayload, callback) => {
     return Users.findById(jwtPayload._id)
     .then((user) => {

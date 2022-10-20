@@ -1,6 +1,6 @@
 //Authentication
 
-const jwtSecret = "your_jwt_secret";// This has to be the same key used
+const jwtSecret = "1a2@3d4$5g";// This has to be the same key used
 //in the JWTStrategy
 
 const jwt = require("jsonwebtoken"),
